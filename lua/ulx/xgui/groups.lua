@@ -531,7 +531,7 @@ groups.teammodremove.DoClick = function()
 	local modifier = groups.teammodifiers:GetSelected()[1]:GetColumnText(1)
 	RunConsoleCommand( "xgui", "updateTeamValue", team, modifier, "" )
 end
-groups.teammodspace = xlib.makelistlayout{ x=265, y=5, w=135, h=195, padding=1, parent=groups.pnlG3 }
+groups.teammodspace = xlib.makelistlayout{ x=265, y=5, w=135, h=195, padding=1, parent=groups.pnlG3, enablescroll=false }
 
 ----------------------------------------
 ------Groups Panel 4 (Access Management)

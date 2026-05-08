@@ -120,7 +120,7 @@ xgui.addSettingModule( "Server", server, "icon16/server.png", "xgui_svsettings" 
 --These are submodules that load into the server settings module above.
 
 -------------------------Admin Votemaps--------------------------
-local plist = xlib.makelistlayout{ w=275, h=322, parent=xgui.null }
+local plist = xlib.makelistlayout{ w=275, h=322, parent=xgui.null, enablescroll=false }
 plist:Add( xlib.makelabel{ label="Admin Votemap Settings" } )
 plist:Add( xlib.makelabel{ label="Ratio of votes needed to accept a mapchange" } )
 plist:Add( xlib.makeslider{ label="<--->", min=0, max=1, decimal=2, repconvar="ulx_votemap2Successratio" } )
@@ -183,7 +183,7 @@ xlib.makelabel{ x=125, y=25, label="Time until advert repeats:", parent=adverts 
 adverts.time = xlib.makeslider{ x=125, y=40, w=150, label="<--->", value=60, min=1, max=1000, tooltip="Time in seconds till the advert is shown/repeated.", parent=adverts }
 adverts.group = xlib.makecombobox{ x=125, y=65, w=150, enableinput=true, parent=adverts, tooltip="Select or create a new advert group." }
 adverts.color = xlib.makecolorpicker{ x=135, y=90, parent=adverts }
-local panel = xlib.makelistlayout{ w=150, h=45, spacing=4, parent=xgui.null }
+local panel = xlib.makelistlayout{ w=150, h=45, spacing=4, parent=xgui.null, enablescroll=false }
 panel:Add( xlib.makelabel{ label="Display Time (seconds)" } )
 adverts.display = xlib.makeslider{ label="<--->", min=1, max=60, value=10, tooltip="The time in seconds the CSay advert is displayed" }
 panel:Add( adverts.display )
@@ -405,7 +405,7 @@ xgui.addSubModule( "ULX Adverts", adverts, nil, "server" )
 
 ---------------------------Ban Message---------------------------
 xgui.prepareDataType( "banmessage" )
-local plist = xlib.makelistlayout{ w=275, h=322, parent=xgui.null }
+local plist = xlib.makelistlayout{ w=275, h=322, parent=xgui.null, enablescroll=false }
 plist:Add( xlib.makelabel{ label="Message Shown to Banned Users", zpos=1 } )
 plist.txtBanMessage = xlib.maketextbox{ zpos=2, h=236, multiline=true }
 plist:Add( plist.txtBanMessage )
@@ -489,7 +489,7 @@ plist:Add( xlib.makecolorpicker{ repconvar="ulx_logEchoColorMisc", noalphamodetw
 xgui.addSubModule( "ULX Command/Event Echoes", plist, nil, "server" )
 
 ------------------------General Settings-------------------------
-local plist = xlib.makelistlayout{ w=275, h=322, parent=xgui.null }
+local plist = xlib.makelistlayout{ w=275, h=322, parent=xgui.null, enablescroll=false }
 plist:Add( xlib.makelabel{ label="General ULX Settings" } )
 plist:Add( xlib.makeslider{ label="Chat spam time", min=0, max=5, decimal=1, repconvar="ulx_chattime" } )
 plist:Add( xlib.makelabel{ label="\nAllow '/me' chat feature" } )
@@ -582,7 +582,7 @@ xgui.hookEvent( "banreasons", "process", panel.updateBanReasons, "serverUpdateBa
 xgui.addSubModule( "ULX Kick/Ban Reasons", panel, "xgui_managebans", "server" )
 
 --------------------------Log Settings---------------------------
-local plist = xlib.makelistlayout{ w=275, h=322, parent=xgui.null }
+local plist = xlib.makelistlayout{ w=275, h=322, parent=xgui.null, enablescroll=false }
 plist:Add( xlib.makelabel{ label="Logging Settings" } )
 plist:Add( xlib.makecheckbox{ label="Enable Logging to Files", repconvar="ulx_logFile" } )
 plist:Add( xlib.makecheckbox{ label="Log Chat", repconvar="ulx_logChat" } )
@@ -740,7 +740,7 @@ end
 
 
 -- MOTD Generator UI
-plist.generator = xlib.makelistlayout{ w=255, h=250, zpos=6 }
+plist.generator = xlib.makelistlayout{ w=255, h=250, zpos=6, enablescroll=false }
 plist:Add( plist.generator )
 plist.generator:SetVisible( false )
 
@@ -750,7 +750,7 @@ local txtServerDescription = xlib.maketextbox{ zpos=-1 }
 plist.generator:Add( txtServerDescription )
 
 plist.generator:Add( xlib.makelabel{ label="\nMOTD Generator Info" } )
-local pnlInfo = xlib.makelistlayout{ w=271 }
+local pnlInfo = xlib.makelistlayout{ w=271, enablescroll=false }
 plist.generator:Add( pnlInfo )
 
 plist.generator:Add( xlib.makelabel{} )
@@ -915,7 +915,7 @@ plist.updateGeneratorSettings = function( data )
 	pnlInfo:Clear()
 	for i=1, #data.info do
 		local section = data.info[i]
-		local sectionPanel = xlib.makelistlayout{ w=270 }
+		local sectionPanel = xlib.makelistlayout{ w=270, enablescroll=false }
 
 		if section.type == "text" then
 			sectionPanel:Add( xlib.makelabel{ label="\n"..i..": Text Content", zpos=0 } )
@@ -1166,7 +1166,7 @@ xgui.hookEvent( "votemaps", "process", panel.updateList, "serverUpdateVotemapLis
 xgui.addSubModule( "ULX Player Votemap List", panel, nil, "server" )
 
 ---------------------Player Votemap Settings---------------------
-local plist = xlib.makelistlayout{ w=275, h=322, parent=xgui.null }
+local plist = xlib.makelistlayout{ w=275, h=322, parent=xgui.null, enablescroll=false }
 plist:Add( xlib.makelabel{ label="Player Votemap Settings" } )
 plist:Add( xlib.makecheckbox{ label="Enable Player Votemaps", repconvar="ulx_votemapEnabled" } )
 plist:Add( xlib.makelabel{ label="Time (min) before a user can vote for a map" } )
@@ -1182,7 +1182,7 @@ plist:Add( xlib.makeslider{ label="<--->", min=0, max=300, repconvar="ulx_votema
 xgui.addSubModule( "ULX Player Votemap Settings", plist, nil, "server" )
 
 -------------------------Reserved Slots--------------------------
-local plist = xlib.makelistlayout{ w=275, h=322, parent=xgui.null }
+local plist = xlib.makelistlayout{ w=275, h=322, parent=xgui.null, enablescroll=false }
 plist:Add( xlib.makelabel{ label="Reserved Slots Settings" } )
 plist:Add( xlib.makecombobox{ repconvar="ulx_rslotsMode", isNumberConvar=true, choices={ "0 - Reserved slots disabled", "1 - Admins fill slots", "2 - Admins don't fill slots", "3 - Admins kick newest player" } } )
 plist:Add( xlib.makeslider{ label="Number of Reserved Slots", min=0, max=game.MaxPlayers(), repconvar="ulx_rslots" } )
@@ -1191,7 +1191,7 @@ plist:Add( xlib.makelabel{ w=265, wordwrap=true, label="Reserved slots mode info
 xgui.addSubModule( "ULX Reserved Slots", plist, nil, "server" )
 
 ------------------------Votekick/Voteban-------------------------
-local plist = xlib.makelistlayout{ w=275, h=322, parent=xgui.null }
+local plist = xlib.makelistlayout{ w=275, h=322, parent=xgui.null, enablescroll=false }
 plist:Add( xlib.makelabel{ label="Votekick Settings" } )
 plist:Add( xlib.makelabel{ label="Ratio of votes needed to accept votekick" } )
 plist:Add( xlib.makeslider{ label="<--->", min=0, max=1, decimal=2, repconvar="ulx_votekickSuccessratio" } )

@@ -101,19 +101,36 @@ function xlib.makelabel( t )
 end
 
 function xlib.makelistlayout( t )
-	local pnl = vgui.Create( "DListLayout" )
-	pnl.scroll = vgui.Create( "DScrollPanel", t.parent )
-
-	pnl.scroll:SetPos( t.x, t.y )
-	pnl.scroll:SetSize( t.w, t.h )
-	pnl:SetSize( t.w, t.h )
-	pnl.scroll:AddItem( pnl )
-	pnl:SetZPos( t.zpos or 0 )
-
-	function pnl:PerformLayout()
-		self:SizeToChildren( false, true )
-		self:SetWide( self.scroll:GetWide() - ( self.scroll.VBar.Enabled and 16 or 0 ) )
+	if t.enablescroll == nil then
+		t.enablescroll = true
 	end
+
+	local pnl = vgui.Create( "DListLayout" )
+
+	if t.enablescroll then
+		pnl.scroll = vgui.Create( "DScrollPanel", t.parent )
+
+		pnl.scroll:SetPos( t.x, t.y )
+		pnl.scroll:SetSize( t.w, t.h )
+		pnl:SetSize( t.w, t.h )
+		pnl.scroll:AddItem( pnl )
+		pnl:SetZPos( t.zpos or 0 )
+
+		function pnl:PerformLayout()
+			self:SizeToChildren( false, true )
+			self:SetWide( self.scroll:GetWide() - ( self.scroll.VBar.Enabled and 16 or 0 ) )
+		end
+	else
+		pnl:SetParent( t.parent )
+		pnl:SetPos( t.x, t.y )
+		pnl:SetSize( t.w, t.h )
+		pnl:SetZPos( t.zpos or 0 )
+
+		function pnl:PerformLayout()
+			self:SizeToChildren( false, true )
+		end
+	end
+
 	return pnl
 end
 
